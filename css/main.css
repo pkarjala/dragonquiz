@@ -1,0 +1,22 @@
+body { 
+  font-family: sans-serif;
+}
+
+.drag-box {
+  width: 150px;
+  height: 25px;
+  border: 1px solid;
+  padding: 2px;
+}
+
+#drag2 {
+  top: 250px;
+  left: 250px;
+}
+
+#draggable-container {
+  width: 1000px;
+  height: 500px;
+  border: 1px solid;
+  padding: 10px;
+}
