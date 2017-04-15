@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="UTF-8">
+  <title>Testing Localstorage</title>
+  <script language="javascript">
+    // Get URL query parameters.
+    var query_values = new URLSearchParams(window.location.search);
+    // Parse out the username from the Query values.
+    var query_username = query_values.get("username");
+
+    // console.log(query_username);
+
+    // Set the Storage value if uername is set.
+    if( query_username !== null && query_username !== '') {
+      localStorage.setItem("username", query_username);
+    }
+
+    // Put the username value from localStorage into the supplied HTML ID element.
+    function setName(element_name) {
+      var my_name = document.getElementById(element_name);
+      // console.log(my_name);
+      if( my_name == null ) {
+        return false;
+      }
+      var stored_username = localStorage.getItem("username");
+      // console.log(stored_username);
+      if ( stored_username != null ) {
+        my_name.innerHTML = stored_username;
+      } else {
+        my_name.innerHTML = "Nothing Set!";
+      }
+    }
+  </script>
+  </head>
+  <body onload="setName('name');">
+    <h1>Welcome to you!</h1>
+    <p>
+      Your name is: <span id="name"></span>
+    </p>
+    <p>
+      The last name input on your browser is saved in <code>localStorage</code>.
+    </p>
+    <p>
+      Want to display your name?  Just append it to the url as <code>?username=MYNAME</code>.
+    </p>
+  </body>
+</html>
