@@ -20,3 +20,7 @@ body {
   border: 1px solid;
   padding: 10px;
 }
+
+#buttons {
+  margin-top: 25px;
+}

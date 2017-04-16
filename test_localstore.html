@@ -1,37 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-  <meta charset="UTF-8">
-  <title>Testing Localstorage</title>
-  <script language="javascript">
-    // Get URL query parameters.
-    var query_values = new URLSearchParams(window.location.search);
-    // Parse out the username from the Query values.
-    var query_username = query_values.get("username");
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>DragonQuiz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    // console.log(query_username);
-
-    // Set the Storage value if uername is set.
-    if( query_username !== null && query_username !== '') {
-      localStorage.setItem("username", query_username);
-    }
-
-    // Put the username value from localStorage into the supplied HTML ID element.
-    function setName(element_name) {
-      var my_name = document.getElementById(element_name);
-      // console.log(my_name);
-      if( my_name == null ) {
-        return false;
-      }
-      var stored_username = localStorage.getItem("username");
-      // console.log(stored_username);
-      if ( stored_username != null ) {
-        my_name.innerHTML = stored_username;
-      } else {
-        my_name.innerHTML = "Nothing Set!";
-      }
-    }
-  </script>
+    <link rel="stylesheet" href="css/main.css">
   </head>
   <body onload="setName('name');">
     <h1>Welcome to you!</h1>
@@ -44,5 +19,8 @@
     <p>
       Want to display your name?  Just append it to the url as <code>?username=MYNAME</code>.
     </p>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+    <script src="js/main.js"></script>
   </body>
 </html>
