@@ -13,13 +13,15 @@
     <p id="drag-x">X-Coordinate: <span id="x-coordinate"></span></p>
     <p id="drag-y">Y-Coordinate: <span id="y-coordinate"></span></p>
     <div id="draggable-container">
-      <div id="drag1" class="draggable drag-box">Testing first!</div>
+      <div id="drag1" class="draggable drag-box">Testing first! <button class="delete" onclick="deleteDraggable( this );">X</button></div>
       <div id="drag2" class="draggable drag-box">Testing second!</div>
     </div>
 
     <div id="buttons">
-      <button id="save" onclick="saveDraggables('.draggable', 'draggable-container');">Save</button> 
+      <button id="add" onclick="addDraggable( '.draggable', '#draggable-container' );">Add New</button>
+      <button id="save" onclick="saveDraggables( '.draggable', '#draggable-container' );">Save</button>
     </div>
+
     <!-- Loaded Javascripts -->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>

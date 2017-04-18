@@ -6,18 +6,13 @@
 $( function() {
 
   var $xcoordinate = $( "#x-coordinate" ),
-      $ycoordinate = $( "#y-coordinate" );
+      $ycoordinate = $( "#y-coordinate" ),
+      $draggable_identifier = $( ".draggable" ),
+      $draggable_container = $( "#draggable-container" );
 
-  $( ".draggable" ).draggable( { 
-    containment: "#draggable-container",
-    scroll: false,
-    drag: function() {
-      updateXYCoordinates( $( this ), $( "#draggable-container" ), $xcoordinate, $ycoordinate );
-    },
-  } );
+  initializeDraggables( $draggable_identifier, $draggable_container, $xcoordinate, $ycoordinate );
 
-
-} );
+});
 
 
 /**
@@ -36,18 +31,85 @@ function updateXYCoordinates( $draggable_object, $parent_object, $xid, $yid ) {
 
 
 /**
+ * initializeDraggables
+ * Makes all of the identified elements considered Draggable by jQuery UI.
+ *
+ */
+function initializeDraggables( $identifier, $container, $xcoordinate, $ycoordinate ) {
+  $identifier.draggable( { 
+    containment: $container,
+    scroll: false,
+    drag: function() {
+      updateXYCoordinates( $( this ), $container, $xcoordinate, $ycoordinate );
+    },
+  } );
+}
+
+
+// function generateDraggableElement( $container ) {
+
+// }
+
+
+/**
+ * createDraggable
+ * Generates a new Draggable element that can be added to a container.
+ *
+ */
+function createDraggable( $identifier, container ) {
+  console.log( "Generating Draggable element." );
+  $new_draggable = $( '<div class="' + $identifier.attr("class") + '"></div>' );
+  $new_draggable.attr( "id", "drag" + ( $( container ).children().length + 1 ).toString() );
+  $new_draggable.text( "Draggable " + ( $( container ).children().length + 1 ) );
+  $new_draggable.append( '<button class="delete" onclick="deleteDraggable( this );">X</button>' );
+
+
+  return $new_draggable;
+}
+
+
+/**
+ * addDraggable
+ * Adds another Draggable element to the screen inside of the given container.
+ *
+ */
+function addDraggable( identifier, container ) {
+  console.log( "Adding another draggable!" );
+  console.log( $( container ).children().length );
+  // console.log( createDraggable( $( identifier ), container ) );
+  $new_element = createDraggable( $( identifier ), container );
+
+  $( container ).append( $new_element );
+  initializeDraggables( $( identifier ), $( container ), $( "#x-coordinate" ), $( "#y-coordinate" ) );
+}
+
+
+function deleteDraggable( to_delete ) {
+  console.log( "Deleting draggable!" );
+  console.log( $( to_delete ).parent() );
+  $( to_delete ).parent().remove();
+}
+
+/**
  * saveDraggables
  * Parses all of the draggable elements and saves their XY coordinates to localStorage.
  *
  */
 function saveDraggables( identifier, container ) {
-  console.log( "Button clicked!" );
+  console.log( "Saving location data!" );
   var draggable_objects = document.getElementsByClassName( identifier );
   $( identifier ).each( function( event ) {
-    console.log( $( this ).position().left ); // x
-    console.log( $( this ).position().top ); // y
+    console.log( $( this ).attr( "id" ) );
+    console.log( $( this ).position().left - $( container ).position().left - parseInt( $( container ).css( "padding-left" ) )  ); // x
+    console.log( $( this ).position().top - $( container ).position().top - parseInt( $( container ).css( "padding-top" ) ) ); // y
   });
 }
+
+
+
+
+
+
 
 
 // Get URL query parameters.
