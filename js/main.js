@@ -56,12 +56,18 @@ function initializeDraggables( $identifier, $container, $xcoordinate, $ycoordina
  * Generates a new Draggable element that can be added to a container.
  *
  */
-function createDraggable( $identifier, container ) {
+function createDraggable( $identifier, $container ) {
   console.log( "Generating Draggable element." );
-  $new_draggable = $( '<div class="' + $identifier.attr("class") + '"></div>' );
-  $new_draggable.attr( "id", "drag" + ( $( container ).children().length + 1 ).toString() );
-  $new_draggable.text( "Draggable " + ( $( container ).children().length + 1 ) );
-  $new_draggable.append( '<button class="delete" onclick="deleteDraggable( this );">X</button>' );
+  if ( $container.children().length == 0 ) {
+    $new_draggable = $( '<div class="draggable drag-box"></div>' );
+  } else if ( $container.children().length > 50 ) {
+
+  } else {
+    $new_draggable = $( '<div class="' + $identifier.attr("class") + '"></div>' );
+  }
+  $new_draggable.attr( "id", "drag" + ( $container.children().length + 1 ).toString() );
+  $new_draggable.text( "Draggable " + ( $container.children().length + 1 ) );
+  $new_draggable.append( '<div class="drag-buttons"><button class="edit" onclick="editDraggable( this );"><i class="fa fa-cog fa-fw"></i></button><button class="delete" onclick="deleteDraggable( this );"><i class="fa fa-trash-o fa-fw"></i></button></div>' );
 
 
   return $new_draggable;
@@ -77,18 +83,28 @@ function addDraggable( identifier, container ) {
   console.log( "Adding another draggable!" );
   console.log( $( container ).children().length );
   // console.log( createDraggable( $( identifier ), container ) );
-  $new_element = createDraggable( $( identifier ), container );
-
-  $( container ).append( $new_element );
-  initializeDraggables( $( identifier ), $( container ), $( "#x-coordinate" ), $( "#y-coordinate" ) );
+  $new_element = createDraggable( $( identifier ), $( container ) );
+  if( $new_element ) {
+    $( container ).append( $new_element );
+    initializeDraggables( $( identifier ), $( container ), $( "#x-coordinate" ), $( "#y-coordinate" ) );
+  } else {
+    return;
+  }
 }
 
 
 function deleteDraggable( to_delete ) {
   console.log( "Deleting draggable!" );
-  console.log( $( to_delete ).parent() );
-  $( to_delete ).parent().remove();
+  $( to_delete ).parent().parent().remove();
 }
+
+
+
+function editDraggable ( to_edit ) {
+  console.log( "Editing Draggable!" );
+}
+
+
 
 /**
  * saveDraggables

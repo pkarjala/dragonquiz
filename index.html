@@ -7,24 +7,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   </head>
   <body>
     <h1>Testing Draggables!</h1>
     <p id="drag-x">X-Coordinate: <span id="x-coordinate"></span></p>
     <p id="drag-y">Y-Coordinate: <span id="y-coordinate"></span></p>
     <div id="draggable-container">
-      <div id="drag1" class="draggable drag-box">Testing first! <button class="delete" onclick="deleteDraggable( this );">X</button></div>
-      <div id="drag2" class="draggable drag-box">Testing second!</div>
+      <div id="drag1" class="draggable drag-box"><div class="drag-text">Testing first!</div><div class="drag-buttons"><button class="edit" onclick="editDraggable( this );"><i class="fa fa-cog fa-fw"></i></button><button class="delete" onclick="deleteDraggable( this );"><i class="fa fa-trash-o fa-fw"></i></button></div></div>
     </div>
 
     <div id="buttons">
       <button id="add" onclick="addDraggable( '.draggable', '#draggable-container' );">Add New</button>
       <button id="save" onclick="saveDraggables( '.draggable', '#draggable-container' );">Save</button>
+      <span class="feedback-message"></span>
     </div>
+
 
     <!-- Loaded Javascripts -->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.2/dragula.min.js'></script>
     <script src="js/main.js"></script>
   </body>
 </html>

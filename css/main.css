@@ -3,23 +3,34 @@ body {
 }
 
 .drag-box {
-  width: 150px;
+  width: 200px;
   height: 25px;
   border: 1px solid;
   padding: 2px;
   position: absolute;
+  float: left;
 }
 
 .delete {
-  position: absolute;
-  right: 5px;
+  float: right;
   margin: 2px;
   text-align: center;
 }
 
-#drag2 {
-  top: 250px;
-  left: 250px;
+.edit {
+  float: left;
+  margin: 2px;
+  text-align: center;
+}
+
+.drag-text{
+  float: left;
+  width: 60%;
+}
+
+.drag-buttons {
+  float: right;
+  width: 40%;
 }
 
 #draggable-container {
