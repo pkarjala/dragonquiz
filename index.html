@@ -8,13 +8,59 @@
 
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.2/dragula.min.js'></script>
+    <script>
+      $( function() {
+        var dialog, form;
+
+        dialog = $( "#dialog-form" ).dialog({
+          autoOpen: false,
+          height: 200,
+          width: 350,
+          modal: true,
+          buttons: {
+            "Create an account": saveDraggable,
+            Cancel: function() {
+              dialog.dialog( "close" );
+            }
+          },
+          close: function() {
+            form[ 0 ].reset();
+            // allFields.removeClass( "ui-state-error" );
+          }
+        });
+
+        form = dialog.find( "form" ).on( "submit", function( event ) {
+          event.preventDefault();
+          saveDraggable();
+        });
+
+        function saveDraggable() {
+          console.log("Saving Draggable!");
+          dialog.dialog( "close" );
+          return true;
+        }
+
+        $( ".edit" ).on( "click", function( event ) {
+          console.log( this.id );
+          dialog.dialog( "open" );
+        });
+      });
+    </script>
+    <script src="js/main.js"></script>
   </head>
   <body>
     <h1>Testing Draggables!</h1>
     <p id="drag-x">X-Coordinate: <span id="x-coordinate"></span></p>
     <p id="drag-y">Y-Coordinate: <span id="y-coordinate"></span></p>
     <div id="draggable-container">
-      <div id="drag1" class="draggable drag-box"><div class="drag-text">Testing first!</div><div class="drag-buttons"><button class="edit" onclick="editDraggable( this );"><i class="fa fa-cog fa-fw"></i></button><button class="delete" onclick="deleteDraggable( this );"><i class="fa fa-trash-o fa-fw"></i></button></div></div>
+      <div id="drag1" class="draggable drag-box"><div class="drag-text">Testing first!</div><div class="drag-buttons"><button id="edit1" class="edit"><i class="fa fa-cog fa-fw"></i></button><button class="delete" onclick="deleteDraggable( this );"><i class="fa fa-trash-o fa-fw"></i></button></div></div>
+      <div id="drag2" class="draggable drag-box"><div class="drag-text">Testing second!</div><div class="drag-buttons"><button id="edit2" class="edit"><i class="fa fa-cog fa-fw"></i></button><button class="delete" onclick="deleteDraggable( this );"><i class="fa fa-trash-o fa-fw"></i></button></div></div>
     </div>
 
     <div id="buttons">
@@ -24,10 +70,22 @@
     </div>
 
 
+
+    <div id="dialog-form" title="Edit Draggable">
+      <form>
+        <fieldset>
+          <label for="name">Name</label>
+          <input type="text" name="name" id="name" value="" class="text ui-widget-content ui-corner-all">
+          <label for="email">match</label>
+          <input type="text" name="match" id="match" value="" class="text ui-widget-content ui-corner-all">
+          <!-- Allow form submission with keyboard without duplicating the dialog button -->
+          <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+        </fieldset>
+      </form>
+    </div>
+
+
     <!-- Loaded Javascripts -->
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.2/dragula.min.js'></script>
-    <script src="js/main.js"></script>
+    
   </body>
 </html>
