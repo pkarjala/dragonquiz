@@ -66,9 +66,9 @@ function createDraggable( $identifier, $container ) {
   } else {
     $new_draggable = $( '<div class="' + $identifier.attr("class") + '"></div>' );
   }
-  $new_draggable.attr( "id", "drag" + ( $container.children().length + 1 ).toString() );
-  $new_draggable.append( '<div class="drag-text">Draggable ' + ( $container.children().length + 1 + "</div>") );
-  $new_draggable.append( '<div class="drag-buttons"><button class="edit"><i class="fa fa-cog fa-fw"></i></button><button class="delete" onclick="deleteDraggable( this );"><i class="fa fa-trash-o fa-fw"></i></button></div>' );
+  $new_draggable.attr( "id", "drag" + $container.children().length + 1  );
+  $new_draggable.append( '<div class="drag-text">Draggable ' +  $container.children().length + 1 + "</div>" );
+  $new_draggable.append( '<div class="drag-buttons"><button id="edit' + $container.children().length + 1 + '" class="edit"><i class="fa fa-cog fa-fw"></i></button><button class="delete" onclick="deleteDraggable( this );"><i class="fa fa-trash-o fa-fw"></i></button></div>' );
 
 
   return $new_draggable;

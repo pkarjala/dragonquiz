@@ -43,3 +43,5 @@ body {
 #buttons {
   margin-top: 25px;
 }
+
+.dialog { display: none; }

@@ -20,6 +20,48 @@
     <p>
       Want to display your name?  Just append it to the url as <code>?username=MYNAME</code>.
     </p>
+
+    <hr>
+    <canvas id="image-container">
+    </canvas>
+    <hr>
+    <div id="image-uploader">
+      <input type="file" id="imageUpload" name="files[]" multiple />
+      <script>
+        function el(id) { 
+          return document.getElementById(id);
+        } // Get elem by ID
+
+        var canvas  = el("image-container");
+        var context = canvas.getContext("2d");
+
+        // Read the loaded image and set it to the Canvas.
+        function renderImageToCanvas() {
+          // Make sure we have a file that was uploaded.
+          if( this.files && this.files[0] ) {
+
+            // Generate a fileReader object.
+            var filereader = new FileReader();
+            // When we are successful in reading a file from the filesystem...
+            filereader.onload = function(e) {
+              // Create a new Image object...
+              var img = new Image();
+              // When the image object loads, draw the image to our context.
+              img.onload = function() {
+                canvas.width = img.width;
+                canvas.height = img.height;
+                context.drawImage(img, 0, 0);
+              };
+              img.src = e.target.result;
+            };
+            // Set our generated filereader to pull the data as a URL when a file is uploaded.
+            filereader.readAsDataURL( this.files[0] );
+          }
+        }
+        // Add listener to the imageUpload input.
+        el("imageUpload").addEventListener("change", renderImageToCanvas, false);
+      </script>
+    </div>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
     <script src="js/main.js"></script>
