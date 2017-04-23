@@ -33,9 +33,9 @@ body {
   width: 40%;
 }
 
-#draggable-container {
-  width: 1000px;
-  height: 500px;
+#draggable-container, .draggable-container {
+/*  width: 1000px;
+  height: 500px;*/
   border: 1px solid;
   padding: 10px;
 }

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>DragonQuiz</title>
+    <title>DragonQuiz: LocalStore</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="css/main.css">
@@ -22,20 +22,30 @@
     </p>
 
     <hr>
-    <canvas id="image-container">
+    <canvas id="image-container" class="draggable-container">
     </canvas>
     <hr>
     <div id="image-uploader">
       <input type="file" id="imageUpload" name="files[]" multiple />
       <script>
+        /**
+         * el()
+         * Gets any element by its id and returns it as a JavaScript object.
+         */
         function el(id) { 
           return document.getElementById(id);
-        } // Get elem by ID
+        }
 
+        // Get our canvas element for drawing to, and set its context.
         var canvas  = el("image-container");
         var context = canvas.getContext("2d");
 
-        // Read the loaded image and set it to the Canvas.
+        /**
+         * renderImageToCanvas()
+         * Takes a supplied image file and renders it to a Canvas.
+         * NOTE:  probably better to pass the canvas to be written to instead
+         * of hard-coding it.
+         */
         function renderImageToCanvas() {
           // Make sure we have a file that was uploaded.
           if( this.files && this.files[0] ) {
@@ -62,8 +72,34 @@
         el("imageUpload").addEventListener("change", renderImageToCanvas, false);
       </script>
     </div>
+    <hr>
+    <div id="image-panel" style="width: 500px; height: 500px;"></div>
+    <hr>
+    <label for="image-url">Paste an image URL.</label>
+    <input type="text" id="image-url" />
+
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
     <script src="js/main.js"></script>
+    <script>
+      $( function() {
+        $( '#image-url' ).change( function (event) {
+          console.log( $( this ).val() );
+          
+          // $( '#image-drop' ).attr( 'src', $( this ).val() );
+          $( '#image-panel' ).css( 'background-image', 'url(' + $( this ).val() + ')' );
+
+
+          var remote_image = new Image();
+          remote_image.onload = function () {
+            console.log( remote_image.width );
+            console.log( remote_image.height );
+            $( '#image-panel' ).css( 'height', remote_image.height );
+            $( '#image-panel' ).css( 'width', remote_image.width );
+          }
+          remote_image.src = $( '#image-panel' ).css( 'background-image' ).replace(/url\(\"|\"\)$/ig, "");
+        });
+      });
+    </script>
   </body>
 </html>
