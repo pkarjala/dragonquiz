@@ -67,6 +67,9 @@
       <button id="add" onclick="addDraggable( '.draggable', '#draggable-container' );">Add New</button>
       <button id="save" onclick="saveDraggables( '.draggable', '#draggable-container' );">Save</button>
       <span class="feedback-message"></span>
+      <br />
+      <label for="image-url">Image URL: </label>
+      <input type="text" id="image-url" /><button id="load-image">Load Image</button>
     </div>
 
 
@@ -87,5 +90,21 @@
 
     <!-- Loaded Javascripts -->
     <script src="js/main.js"></script>
+    <script>
+      $( function() {
+        $( '#load-image' ).click( function (event) {
+          console.log( $( this ).val() );
+          
+          $( '#draggable-container' ).css( 'background-image', 'url(' + $( "#image-url" ).val() + ')' );
+
+          var remote_image = new Image();
+          remote_image.onload = function () {
+            $( '#draggable-container' ).css( 'height', remote_image.height );
+            $( '#draggable-container' ).css( 'width', remote_image.width );
+          }
+          remote_image.src = $( '#draggable-container' ).css( 'background-image' ).replace(/url\(\"|\"\)$/ig, "");
+        });
+      });
+    </script>
   </body>
 </html>

@@ -5,6 +5,7 @@
  */
 $( function() {
 
+  // Global Variables
   var $xcoordinate = $( "#x-coordinate" ),
       $ycoordinate = $( "#y-coordinate" ),
       $draggable_identifier = $( ".draggable" ),

@@ -76,18 +76,18 @@
     <div id="image-panel" style="width: 500px; height: 500px;"></div>
     <hr>
     <label for="image-url">Paste an image URL.</label>
-    <input type="text" id="image-url" />
+    <input type="text" id="image-url" /><button id="load-image">Load Image</button>
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
     <script src="js/main.js"></script>
     <script>
       $( function() {
-        $( '#image-url' ).change( function (event) {
+        $( '#load-image' ).click( function (event) {
           console.log( $( this ).val() );
           
           // $( '#image-drop' ).attr( 'src', $( this ).val() );
-          $( '#image-panel' ).css( 'background-image', 'url(' + $( this ).val() + ')' );
+          $( '#image-panel' ).css( 'background-image', 'url(' + $( "#image-url" ).val() + ')' );
 
 
           var remote_image = new Image();

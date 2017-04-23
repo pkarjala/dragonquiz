@@ -9,6 +9,7 @@ body {
   padding: 2px;
   position: absolute;
   float: left;
+  background: #fff;
 }
 
 .delete {
@@ -34,10 +35,12 @@ body {
 }
 
 #draggable-container, .draggable-container {
-/*  width: 1000px;
-  height: 500px;*/
+  width: 500px;
+  height: 500px;
   border: 1px solid;
   padding: 10px;
+  background-repeat: no-repeat;
+  background-origin: padding-box;
 }
 
 #buttons {
