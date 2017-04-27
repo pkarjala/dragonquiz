@@ -21,6 +21,7 @@ $( function() {
   //----------------------------- Dialog Setup
 
   // Sets up the dialog loading element for editing a draggable.
+  // NOTE:  Refactor?
   dialog = $( "#dialog-form" ).dialog({
     autoOpen: false,
     height: 175,
@@ -54,6 +55,7 @@ $( function() {
 
 
   // Save the values to the Draggable element that called this item.
+  // NOTE:  this function is inside of the parent so that we have access to globals.
   function updateDraggable() {
     console.log("Saving Draggable!");
     // console.log( $( this ) );
@@ -165,18 +167,22 @@ function deleteDraggable( to_delete ) {
 
 
 /**
- * saveDraggables
- * Parses all of the draggable elements and saves their XY coordinates to localStorage.
+ * saveContent
+ * Parses all of the draggable elements and image data and saves it to localStorage.
  *
  */
-function saveDraggables( identifier, container ) {
+function saveContent( identifier, container ) {
   console.log( "Saving location data!" );
   var draggable_objects = document.getElementsByClassName( identifier );
   $( identifier ).each( function( event ) {
     console.log( $( this ).attr( "id" ) );
+    console.log( $( this ).children( '.drag-text' ).text() );
     console.log( $( this ).position().left - $( container ).position().left - parseInt( $( container ).css( "padding-left" ) )  ); // x
     console.log( $( this ).position().top - $( container ).position().top - parseInt( $( container ).css( "padding-top" ) ) ); // y
   });
+  console.log( getBackgroundImageData( container ) );
+  console.log( $( container ).css( 'height' ) );
+  console.log( $( container ).css( 'width' ) );
 }
 
 
@@ -199,10 +205,19 @@ function loadImage( image_input, container ) {
     $( container ).css( 'width', remote_image.width );
   }
   // Load the image to our object.
-  remote_image.src = $( container ).css( 'background-image' ).replace(/url\(\"|\"\)$/ig, "");
-  console.log( remote_image.src );
+  remote_image.src = getBackgroundImageData( container );
+  //console.log( remote_image.src );
 }
 
+
+/**
+ *
+ *
+ *
+ */
+function getBackgroundImageData( container ) {
+  return $( container ).css( 'background-image' ).replace(/url\(\"|\"\)$/ig, "");
+}
 
 
 
