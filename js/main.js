@@ -1,3 +1,5 @@
+var $modal_trigger, $name, $dialog, caller;
+
 /**
  * General functionality on page load.
  * Sets up the Draggable elements for the page.
@@ -10,19 +12,19 @@ $( function() {
       $ycoordinate = $( "#y-coordinate" ),
       $draggable_identifier = $( ".draggable" ),
       $draggable_container = $( "#draggable-container" ),
-      dialog,
+      $modal_trigger = $( ".edit" ),
       form,
-      name = $( "#name" ),
-      caller;
+      $name = $( "#name" );
 
   // Initialization
   initializeDraggables( $draggable_identifier, $draggable_container, $xcoordinate, $ycoordinate );
+  
 
   //----------------------------- Dialog Setup
 
   // Sets up the dialog loading element for editing a draggable.
   // NOTE:  Refactor?
-  dialog = $( "#dialog-form" ).dialog({
+  $dialog = $( "#dialog-form" ).dialog({
     autoOpen: false,
     height: 175,
     width: 350,
@@ -31,7 +33,7 @@ $( function() {
     buttons: {
       "Save Settings": updateDraggable,
       Cancel: function() {
-        dialog.dialog( "close" );
+        $dialog.dialog( "close" );
       }
     },
     close: function() {
@@ -39,29 +41,23 @@ $( function() {
     }
   });
 
-  form = dialog.find( "form" ).on( "submit", function( event ) {
+  form = $dialog.find( "form" ).on( "submit", function( event ) {
     event.preventDefault();
     updateDraggable();
   });
 
 
-
-  $( ".edit" ).on( "click", function( event ) {
-    console.log( $( this ).parent().parent().attr( 'id' ) );
-    caller = $( this ).parent().parent();
-    name.val( $( this ).parent().siblings( ".drag-text" ).text() );
-    dialog.dialog( "open" );
-  });
+  initializeModal( $modal_trigger, $name, $dialog );
 
 
   // Save the values to the Draggable element that called this item.
   // NOTE:  this function is inside of the parent so that we have access to globals.
   function updateDraggable() {
     console.log("Saving Draggable!");
-    // console.log( $( this ) );
-    // console.log( $( caller ).children( '.drag-text' ).text() );
-    $( caller ).children( '.drag-text' ).text( name.val() );
-    dialog.dialog( "close" );
+    console.log( $( this ) );
+    console.log( $( caller ).children( '.drag-text' ).text() );
+    $( caller ).children( '.drag-text' ).text( $name.val() );
+    $dialog.dialog( "close" );
     return true;
   }
 
@@ -100,6 +96,18 @@ function initializeDraggables( $identifier, $container, $xcoordinate, $ycoordina
 }
 
 
+
+function initializeModal( $modal_trigger, $name, $dialog ) {
+  $modal_trigger.on( "click", function( event ) {
+    console.log( $( this ).parent().parent().attr( 'id' ) );
+    caller = $( this ).parent().parent();
+    $name.val( $( this ).parent().siblings( ".drag-text" ).text() );
+    $dialog.dialog( "open" );
+  });
+}
+
+
+
 // function generateDraggableElement( $container ) {
 
 // }
@@ -121,10 +129,10 @@ function createDraggable( $identifier, $container ) {
   } else {
     $new_draggable = $( '<div class="' + $identifier.attr("class") + '"></div>' );
   }
-  $new_draggable.attr( "id", "drag" + $container.children().length + 1  );
-  $new_draggable.append( '<div class="drag-text">Draggable ' +  $container.children().length + 1 + "</div>" );
-  $new_draggable.append( '<div class="drag-buttons"><button id="edit' + $container.children().length + 1 + '" class="edit"><i class="fa fa-cog fa-fw"></i></button><button class="delete" onclick="deleteDraggable( this );"><i class="fa fa-trash-o fa-fw"></i></button></div>' );
-
+  var draggable_count = $container.children().length + 1;
+  $new_draggable.attr( "id", "drag" + draggable_count );
+  $new_draggable.append( '<div class="drag-text">Draggable ' + draggable_count + "</div>" );
+  $new_draggable.append( '<div class="drag-buttons"><button id="edit' + draggable_count + '" class="edit"><i class="fa fa-cog fa-fw"></i></button><button class="delete" onclick="deleteDraggable( this );"><i class="fa fa-trash-o fa-fw"></i></button></div>' );
 
   return $new_draggable;
 }
@@ -143,6 +151,7 @@ function addDraggable( identifier, container ) {
   if( $new_element ) {
     $( container ).append( $new_element );
     initializeDraggables( $( identifier ), $( container ), $( "#x-coordinate" ), $( "#y-coordinate" ) );
+    initializeModal( $( '.edit' ), $( "#name" ), $dialog );
   } else {
     return;
   }
