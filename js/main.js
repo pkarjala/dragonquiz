@@ -14,6 +14,23 @@ $( function() {
   initializeDraggables( $draggable_identifier, $draggable_container, $xcoordinate, $ycoordinate );
 
 
+
+  // Loads the image provided by the image loading button.
+  $( '#load-image' ).click( function (event) {
+    console.log( $( this ).val() );
+    
+    $( '#draggable-container' ).css( 'background-image', 'url(' + $( "#image-url" ).val() + ')' );
+
+    var remote_image = new Image();
+    remote_image.onload = function () {
+      $( '#draggable-container' ).css( 'height', remote_image.height );
+      $( '#draggable-container' ).css( 'width', remote_image.width );
+    }
+    remote_image.src = $( '#draggable-container' ).css( 'background-image' ).replace(/url\(\"|\"\)$/ig, "");
+    console.log( remote_image.src );
+  });
+
+
 });
 
 
