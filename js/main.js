@@ -9,26 +9,59 @@ $( function() {
   var $xcoordinate = $( "#x-coordinate" ),
       $ycoordinate = $( "#y-coordinate" ),
       $draggable_identifier = $( ".draggable" ),
-      $draggable_container = $( "#draggable-container" );
+      $draggable_container = $( "#draggable-container" ),
+      dialog,
+      form,
+      name = $( "#name" ),
+      caller;
 
+  // Initialization
   initializeDraggables( $draggable_identifier, $draggable_container, $xcoordinate, $ycoordinate );
 
+  //----------------------------- Dialog Setup
 
-
-  // Loads the image provided by the image loading button.
-  $( '#load-image' ).click( function (event) {
-    console.log( $( this ).val() );
-    
-    $( '#draggable-container' ).css( 'background-image', 'url(' + $( "#image-url" ).val() + ')' );
-
-    var remote_image = new Image();
-    remote_image.onload = function () {
-      $( '#draggable-container' ).css( 'height', remote_image.height );
-      $( '#draggable-container' ).css( 'width', remote_image.width );
+  // Sets up the dialog loading element for editing a draggable.
+  dialog = $( "#dialog-form" ).dialog({
+    autoOpen: false,
+    height: 175,
+    width: 350,
+    modal: true,
+    resizable: false,
+    buttons: {
+      "Save Settings": updateDraggable,
+      Cancel: function() {
+        dialog.dialog( "close" );
+      }
+    },
+    close: function() {
+      form[ 0 ].reset();
     }
-    remote_image.src = $( '#draggable-container' ).css( 'background-image' ).replace(/url\(\"|\"\)$/ig, "");
-    console.log( remote_image.src );
   });
+
+  form = dialog.find( "form" ).on( "submit", function( event ) {
+    event.preventDefault();
+    updateDraggable();
+  });
+
+
+
+  $( ".edit" ).on( "click", function( event ) {
+    console.log( $( this ).parent().parent().attr( 'id' ) );
+    caller = $( this ).parent().parent();
+    name.val( $( this ).parent().siblings( ".drag-text" ).text() );
+    dialog.dialog( "open" );
+  });
+
+
+  // Save the values to the Draggable element that called this item.
+  function updateDraggable() {
+    console.log("Saving Draggable!");
+    // console.log( $( this ) );
+    // console.log( $( caller ).children( '.drag-text' ).text() );
+    $( caller ).children( '.drag-text' ).text( name.val() );
+    dialog.dialog( "close" );
+    return true;
+  }
 
 
 });
@@ -77,10 +110,12 @@ function initializeDraggables( $identifier, $container, $xcoordinate, $ycoordina
  */
 function createDraggable( $identifier, $container ) {
   console.log( "Generating Draggable element." );
-  if ( $container.children().length == 0 ) {
+  console.log( $container.children().length );
+  if ( $container.children().length >= 0 ) {
     $new_draggable = $( '<div class="draggable drag-box"></div>' );
   } else if ( $container.children().length > 50 ) {
-
+    $( '#feedback-message' ).text("Too many draggables!");
+    return;
   } else {
     $new_draggable = $( '<div class="' + $identifier.attr("class") + '"></div>' );
   }
@@ -125,6 +160,10 @@ function deleteDraggable( to_delete ) {
 
 
 
+
+
+
+
 /**
  * saveDraggables
  * Parses all of the draggable elements and saves their XY coordinates to localStorage.
@@ -140,6 +179,29 @@ function saveDraggables( identifier, container ) {
   });
 }
 
+
+
+/**
+ * loadImage
+ * Loads the image URL provided to the background of the provided container.
+ *
+ */
+function loadImage( image_input, container ) {
+  // Set the background container image.
+  $( container ).css( 'background-image', 'url(' + $( image_input ).val() + ')' );
+
+  // Create an Image object in javaScript to load the dimensions of the image
+  var remote_image = new Image();
+
+  // When we load the image value, set the container width and height to the image.
+  remote_image.onload = function () {
+    $( container ).css( 'height', remote_image.height );
+    $( container ).css( 'width', remote_image.width );
+  }
+  // Load the image to our object.
+  remote_image.src = $( container ).css( 'background-image' ).replace(/url\(\"|\"\)$/ig, "");
+  console.log( remote_image.src );
+}
 
 
 
