@@ -24,7 +24,7 @@
           width: 350,
           modal: true,
           buttons: {
-            "Create an account": saveDraggable,
+            "Save Settings": saveDraggable,
             Cancel: function() {
               dialog.dialog( "close" );
             }
@@ -40,6 +40,7 @@
           saveDraggable();
         });
 
+        // Save the values to the Draggable element that called this item.
         function saveDraggable() {
           console.log("Saving Draggable!");
           dialog.dialog( "close" );
@@ -68,6 +69,7 @@
       <button id="save" onclick="saveDraggables( '.draggable', '#draggable-container' );">Save</button>
       <span class="feedback-message"></span>
       <br />
+      <br />
       <label for="image-url">Image URL: </label>
       <input type="text" id="image-url" /><button id="load-image">Load Image</button>
     </div>
@@ -79,7 +81,7 @@
         <fieldset>
           <label for="name">Name</label>
           <input type="text" name="name" id="name" value="" class="text ui-widget-content ui-corner-all">
-          <label for="email">match</label>
+          <label for="match">Match</label>
           <input type="text" name="match" id="match" value="" class="text ui-widget-content ui-corner-all">
           <!-- Allow form submission with keyboard without duplicating the dialog button -->
           <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
@@ -92,6 +94,7 @@
     <script src="js/main.js"></script>
     <script>
       $( function() {
+        // Loads the image provided by the image loading button.
         $( '#load-image' ).click( function (event) {
           console.log( $( this ).val() );
           
@@ -103,6 +106,7 @@
             $( '#draggable-container' ).css( 'width', remote_image.width );
           }
           remote_image.src = $( '#draggable-container' ).css( 'background-image' ).replace(/url\(\"|\"\)$/ig, "");
+          console.log( remote_image.src );
         });
       });
     </script>

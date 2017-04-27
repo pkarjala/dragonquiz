@@ -129,6 +129,7 @@ function saveDraggables( identifier, container ) {
 
 
 
+/***** LocalStore Experiment for test_localstore.html *****/
 
 // Get URL query parameters.
 var query_values = new URLSearchParams(window.location.search);
