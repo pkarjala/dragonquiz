@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>jQuery UI Droppable - Revert draggable position</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    
+    <style>
+      #draggable, #draggable2 { width: 190px; height: 20px; float: left; margin: 10px 10px 10px 0; cursor: -webkit-grab; }
+      #droppable, #droppable2 { width: 220px; height: 30px; float: left; margin: 10px; }
+      #dragarea { width: 1000px; height: 500px; border: 1px solid; }
+      ul { margin: 0; padding: 0; }
+      li { list-style: none; }
+    </style>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+    $( function() {
+      $( "#draggable" ).draggable({
+        containment: "#dragarea",
+        scroll: false,
+        revert: "invalid"
+      });
+      $( "#draggable2" ).draggable({ 
+        containment: "#dragarea",
+        scroll: false,
+        revert: "invalid" 
+      });
+   
+      $( "#droppable, #droppable2" ).droppable({
+        classes: {
+          "ui-droppable-active": "ui-state-active",
+          "ui-droppable-hover": "ui-state-hover"
+        },
+        drop: function( event, ui ) {
+          $( this )
+            .addClass( "ui-state-highlight" )
+            .html( "Dropped!" );
+        }
+      });
+    } );
+    </script>
+  </head>
+  <body>
+    <div id="dragarea">
+      <div id="answerarea" style="display: inline-block; width: 75%; height: 500px; float: left;">
+        <div id="droppable" class="ui-widget-header">Drop me here</div>
+        <div id="droppable2" class="ui-widget-header">Or here!</div>
+      </div>
+      <ul id="droppable-queue" style="display: inline-block; width: 25%; height: 500px; float: right;">
+        <li id="draggable" class="ui-widget-content">Mast</li>
+        <li id="draggable2" class="ui-widget-content">Sail</li>
+      </ul>
+    </div>
+  </body>
+</html>
