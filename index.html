@@ -11,14 +11,14 @@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.2/dragula.min.js'></script>
+    
   </head>
   <body>
-    <h1>Testing Draggables!</h1>
+    <h1>Quiz Creation!</h1>
     <p id="drag-x">X-Coordinate: <span id="x-coordinate"></span></p>
     <p id="drag-y">Y-Coordinate: <span id="y-coordinate"></span></p>
+
+    <!-- Container for our placement and addition of Draggables -->
     <div id="draggable-container">
       <div id="drag1" class="draggable drag-box">
         <div class="drag-text">Testing first!</div>
@@ -27,7 +27,13 @@
           <button class="delete" onclick="deleteDraggable( this );"><i class="fa fa-trash-o fa-fw"></i></button>
         </div>
       </div>
-      <div id="drag2" class="draggable drag-box"><div class="drag-text">Testing second!</div><div class="drag-buttons"><button id="edit2" class="edit"><i class="fa fa-cog fa-fw"></i></button><button class="delete" onclick="deleteDraggable( this );"><i class="fa fa-trash-o fa-fw"></i></button></div></div>
+      <div id="drag2" class="draggable drag-box" style="left: 300px;">
+        <div class="drag-text">Testing second!</div>
+        <div class="drag-buttons">
+          <button id="edit2" class="edit"><i class="fa fa-cog fa-fw"></i></button>
+          <button class="delete" onclick="deleteDraggable( this );"><i class="fa fa-trash-o fa-fw"></i></button>
+        </div>
+      </div>
     </div>
 
     <div id="messages">
@@ -60,6 +66,8 @@
 
 
     <!-- Loaded Javascripts -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
     <script src="js/main.js"></script>
   </body>
 </html>

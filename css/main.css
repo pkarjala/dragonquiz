@@ -95,12 +95,6 @@ body {
   border: solid 5px purple;
 }
 
-.draggable { 
-  height: 20px;
-  border: solid 2px gray;
-  background-color: white;
-  padding: 1px 0 0 5px;
-}
 
 .wrong { background-color: red; }
 

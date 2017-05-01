@@ -185,6 +185,7 @@ function saveContent( identifier, container ) {
   console.log( "Saving location data!" );
   var draggable_objects = document.getElementsByClassName( identifier );
   $( identifier ).each( function( event ) {
+    // Replace with actual construction of JSON data objects.
     console.log( $( this ).attr( "id" ) );
     console.log( $( this ).children( '.drag-text' ).text() );
     console.log( $( this ).position().left - $( container ).position().left - parseInt( $( container ).css( "padding-left" ) )  ); // x
@@ -216,7 +217,6 @@ function loadImage( image_input, container ) {
   }
   // Load the image to our object.
   remote_image.src = getBackgroundImageData( container );
-  //console.log( remote_image.src );
 }
 
 
