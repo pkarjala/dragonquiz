@@ -88,6 +88,7 @@ function updateXYCoordinates( $draggable_object, $parent_object, $xid, $yid ) {
 function initializeDraggables( $identifier, $container, $xcoordinate, $ycoordinate ) {
   $identifier.draggable( { 
     containment: $container,
+    cursor: "move",
     scroll: false,
     drag: function() {
       updateXYCoordinates( $( this ), $container, $xcoordinate, $ycoordinate );

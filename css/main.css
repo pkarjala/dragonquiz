@@ -1,6 +1,12 @@
+
+/* General CSS */
+
 body { 
   font-family: sans-serif;
 }
+
+
+/* Quiz Creation CSS */
 
 .drag-box {
   width: 200px;
@@ -48,3 +54,54 @@ body {
 }
 
 .dialog { display: none; }
+
+
+/* Quiz Taking CSS */
+
+#dropcontainer { 
+  width: 892px;
+  height: 675px;
+  background-image: url("http://archive.hokulea.com/images/canoes/hokulea_drawing2.gif");
+  min-height: 500px;
+  display: inline-block;
+  float: left;
+}
+
+.drop {
+  background-color: gray;
+  height: 30px;
+  width: 200px;
+  padding-top: 5px;
+  position: absolute;
+}
+
+#origin { 
+  background-color: lightblue;
+  width: 25%;
+  min-height: 500px;
+  display: inline-block;
+  float: right;
+}
+
+#origin div { 
+  margin: 7px 5px 0 5px;
+}
+
+.drop div {
+  margin: 0 5px 0 5px;
+}
+
+.over {
+  border: solid 5px purple;
+}
+
+.draggable { 
+  height: 20px;
+  border: solid 2px gray;
+  background-color: white;
+  padding: 1px 0 0 5px;
+}
+
+.wrong { background-color: red; }
+
+.correct { background-color: green; }
