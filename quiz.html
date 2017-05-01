@@ -25,6 +25,13 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
     // Initial concept from http://jsfiddle.net/39khs/82/
+
+    // Load up and place the drop container with background image.
+
+    // Load up and place the drop zones.
+
+
+    // Set up the answer key.
     var answer_key = [];
 
     // Initialize Draggable elements.
@@ -41,9 +48,10 @@
       hoverClass: 'over',
       drop: function( event, ui ) {
         console.log( "drop" );
-        $( ui.draggable ).parent().droppable( 'enable' );
-        // var dropped = ui.draggable;
-        // var droppedOn = $( this );
+        // If there is a parent that was disabled (usually another drop zone), enable it
+        if( $( ui.draggable ).parent().droppable( "option", "disabled" ) ) {
+          $( ui.draggable ).parent().droppable( 'enable' );
+        }
         $( ui.draggable ).detach().css({ top: 0, left: 0 }).appendTo( $( this ) );
         // When an item has been dropped, we want to disable this.
         $( this ).droppable( 'disable' );
