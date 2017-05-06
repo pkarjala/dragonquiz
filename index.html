@@ -5,13 +5,9 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>DragonQuiz</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
-
-    
   </head>
   <body>
     <h1>Quiz Creation!</h1>
@@ -19,7 +15,8 @@
     <p id="drag-y">Y-Coordinate: <span id="y-coordinate"></span></p>
 
     <!-- Container for our placement and addition of Draggables -->
-    <div id="draggable-container">
+    <!-- A draggable when dropped in will look like this: -->
+    <!-- 
       <div id="drag1" class="draggable drag-box">
         <div class="drag-text">Testing first!</div>
         <div class="drag-buttons">
@@ -27,19 +24,16 @@
           <button class="delete" onclick="deleteDraggable( this );"><i class="fa fa-trash-o fa-fw"></i></button>
         </div>
       </div>
-      <div id="drag2" class="draggable drag-box" style="left: 300px;">
-        <div class="drag-text">Testing second!</div>
-        <div class="drag-buttons">
-          <button id="edit2" class="edit"><i class="fa fa-cog fa-fw"></i></button>
-          <button class="delete" onclick="deleteDraggable( this );"><i class="fa fa-trash-o fa-fw"></i></button>
-        </div>
-      </div>
+    -->
+    <div id="draggable-container">
     </div>
 
+    <!-- Message feedback area -->
     <div id="messages">
       <span id="feedback-message"></span>
     </div>
 
+    <!-- Under setup buttons area. -->
     <div id="buttons">
       <button id="add" onclick="addDraggable( '.draggable', '#draggable-container' );">Add New Draggable</button>
       <br />

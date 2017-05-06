@@ -58,6 +58,19 @@ body {
 
 /* Quiz Taking CSS */
 
+#origin > .draggable { /* Differentiates from the Builder Draggables. */
+  height: 20px;
+  border: solid 2px gray;
+  background-color: white;
+  padding: 1px 0 0 5px;
+}
+
+#title { 
+  width: 100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 #dropcontainer { 
   width: 892px;
   height: 675px;
@@ -73,6 +86,13 @@ body {
   width: 200px;
   padding-top: 5px;
   position: absolute;
+}
+
+.drop > .draggable { /* Differentiates from the Builder Draggables. */
+  height: 20px;
+  border: solid 2px gray;
+  background-color: white;
+  padding: 1px 0 0 5px;
 }
 
 #origin { 

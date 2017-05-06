@@ -1,4 +1,4 @@
-var $modal_trigger, $name, $dialog, caller;
+var $modal_trigger, $name, $dialog, caller, $draggable_list;
 
 /**
  * General functionality on page load.
@@ -17,13 +17,12 @@ $( function() {
       $name = $( "#name" );
 
   // Initialization
-  initializeDraggables( $draggable_identifier, $draggable_container, $xcoordinate, $ycoordinate );
+  initializeDraggables( $draggable_identifier, $draggable_container, $xcoordinate, $ycoordinate, $draggable_list );
   
 
   //----------------------------- Dialog Setup
 
   // Sets up the dialog loading element for editing a draggable.
-  // NOTE:  Refactor?
   $dialog = $( "#dialog-form" ).dialog({
     autoOpen: false,
     height: 175,
@@ -53,9 +52,9 @@ $( function() {
   // Save the values to the Draggable element that called this item.
   // NOTE:  this function is inside of the parent so that we have access to globals.
   function updateDraggable() {
-    console.log("Saving Draggable!");
-    console.log( $( this ) );
-    console.log( $( caller ).children( '.drag-text' ).text() );
+    // console.log("Saving Draggable!");
+    // console.log( $( this ) );
+    // console.log( $( caller ).children( '.drag-text' ).text() );
     $( caller ).children( '.drag-text' ).text( $name.val() );
     $dialog.dialog( "close" );
     return true;
@@ -85,7 +84,7 @@ function updateXYCoordinates( $draggable_object, $parent_object, $xid, $yid ) {
  * Makes all of the identified elements considered Draggable by jQuery UI.
  *
  */
-function initializeDraggables( $identifier, $container, $xcoordinate, $ycoordinate ) {
+function initializeDraggables( $identifier, $container, $xcoordinate, $ycoordinate, $draggable_list ) {
   $identifier.draggable( { 
     containment: $container,
     cursor: "move",
@@ -97,10 +96,14 @@ function initializeDraggables( $identifier, $container, $xcoordinate, $ycoordina
 }
 
 
-
+/**
+ * initializeModal
+ * Sets up the modal box for changing information regarding a draggable.
+ *
+ */
 function initializeModal( $modal_trigger, $name, $dialog ) {
   $modal_trigger.on( "click", function( event ) {
-    console.log( $( this ).parent().parent().attr( 'id' ) );
+    // console.log( $( this ).parent().parent().attr( 'id' ) );
     caller = $( this ).parent().parent();
     $name.val( $( this ).parent().siblings( ".drag-text" ).text() );
     $dialog.dialog( "open" );
@@ -109,19 +112,14 @@ function initializeModal( $modal_trigger, $name, $dialog ) {
 
 
 
-// function generateDraggableElement( $container ) {
-
-// }
-
-
 /**
  * createDraggable
  * Generates a new Draggable element that can be added to a container.
  *
  */
 function createDraggable( $identifier, $container ) {
-  console.log( "Generating Draggable element." );
-  console.log( $container.children().length );
+  // console.log( "Generating Draggable element." );
+  // console.log( $container.children().length );
   if ( $container.children().length >= 0 ) {
     $new_draggable = $( '<div class="draggable drag-box"></div>' );
   } else if ( $container.children().length > 50 ) {
@@ -145,13 +143,13 @@ function createDraggable( $identifier, $container ) {
  *
  */
 function addDraggable( identifier, container ) {
-  console.log( "Adding another draggable!" );
-  console.log( $( container ).children().length );
+  // console.log( "Adding another draggable!" );
+  // console.log( $( container ).children().length );
   // console.log( createDraggable( $( identifier ), container ) );
   $new_element = createDraggable( $( identifier ), $( container ) );
   if( $new_element ) {
     $( container ).append( $new_element );
-    initializeDraggables( $( identifier ), $( container ), $( "#x-coordinate" ), $( "#y-coordinate" ) );
+    initializeDraggables( $( identifier ), $( container ), $( "#x-coordinate" ), $( "#y-coordinate" ), $draggable_list );
     initializeModal( $( '.edit' ), $( "#name" ), $dialog );
   } else {
     return;
@@ -159,31 +157,30 @@ function addDraggable( identifier, container ) {
 }
 
 
+/**
+ * deleteDraggable
+ * Deletes a draggable from the page.
+ *
+ */
 function deleteDraggable( to_delete ) {
-  console.log( "Deleting draggable!" );
+  // console.log( "Deleting draggable!" );
   $( to_delete ).parent().parent().remove();
 }
 
 
 
-// function editDraggable ( to_edit ) {
-//   console.log( "Editing Draggable!" );
-// }
-
-
-
-
-
-
-
 /**
  * saveContent
- * Parses all of the draggable elements and image data and saves it to localStorage.
+ * Parses all of the draggable elements and image data and saves it to a JSON object which is
+ * then saved to localStorage.
  *
  */
 function saveContent( identifier, container ) {
-  console.log( "Saving location data!" );
-  var draggable_objects = document.getElementsByClassName( identifier );
+  // console.log( "Saving location data!" );
+  // var draggable_objects = document.getElementsByClassName( identifier );
+  json_data = {};
+
+  // json_data['draggables'] = 
   $( identifier ).each( function( event ) {
     // Replace with actual construction of JSON data objects.
     console.log( $( this ).attr( "id" ) );
@@ -194,6 +191,10 @@ function saveContent( identifier, container ) {
   console.log( getBackgroundImageData( container ) );
   console.log( $( container ).css( 'height' ) );
   console.log( $( container ).css( 'width' ) );
+
+  // Save all of the JSON data above to Local Storage.
+  console.log(json_data);
+  // localStorage.setItem( "dragonquiz", json_data );
 }
 
 
@@ -221,8 +222,8 @@ function loadImage( image_input, container ) {
 
 
 /**
- *
- *
+ * getBackgroundImageData
+ * Loads the URL information about the background image for a provided container.
  *
  */
 function getBackgroundImageData( container ) {
