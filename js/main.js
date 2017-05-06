@@ -1,4 +1,4 @@
-var $modal_trigger, $name, $dialog, caller, $draggable_list;
+var $modal_trigger, $name, $dialog, caller, $draggable_list = new Array();
 
 /**
  * General functionality on page load.
@@ -120,6 +120,7 @@ function initializeModal( $modal_trigger, $name, $dialog ) {
 function createDraggable( $identifier, $container ) {
   // console.log( "Generating Draggable element." );
   // console.log( $container.children().length );
+  // Determine what type of draggable we need to generate based on existing count.
   if ( $container.children().length >= 0 ) {
     $new_draggable = $( '<div class="draggable drag-box"></div>' );
   } else if ( $container.children().length > 50 ) {
@@ -128,10 +129,23 @@ function createDraggable( $identifier, $container ) {
   } else {
     $new_draggable = $( '<div class="' + $identifier.attr("class") + '"></div>' );
   }
+
+  // Parse through and add the draggable based on existing counts
   var draggable_count = $container.children().length + 1;
-  $new_draggable.attr( "id", "drag" + draggable_count );
-  $new_draggable.append( '<div class="drag-text">Draggable ' + draggable_count + "</div>" );
-  $new_draggable.append( '<div class="drag-buttons"><button id="edit' + draggable_count + '" class="edit"><i class="fa fa-cog fa-fw"></i></button><button class="delete" onclick="deleteDraggable( this );"><i class="fa fa-trash-o fa-fw"></i></button></div>' );
+  var this_draggable_num;
+  var key;
+  for ( var i = 0; i < draggable_count; i++ ) {
+    key = "drag" + (i + 1);
+    if ( $draggable_list[i] === undefined ) {
+      this_draggable_num = i + 1;
+      $draggable_list[i] = key;
+      break;
+    }
+  }
+  // console.log( $draggable_list );
+  $new_draggable.attr( "id", "drag" + this_draggable_num );
+  $new_draggable.append( '<div class="drag-text">Draggable ' + this_draggable_num + "</div>" );
+  $new_draggable.append( '<div class="drag-buttons"><button id="edit' + this_draggable_num + '" class="edit"><i class="fa fa-cog fa-fw"></i></button><button class="delete" onclick="deleteDraggable( this );"><i class="fa fa-trash-o fa-fw"></i></button></div>' );
 
   return $new_draggable;
 }
