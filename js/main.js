@@ -1,3 +1,4 @@
+// Global variables
 var $modal_trigger, $name, $dialog, caller, $draggable_list = new Array();
 
 /**
@@ -30,7 +31,7 @@ $( function() {
     modal: true,
     resizable: false,
     buttons: {
-      "Save Settings": updateDraggable,
+      "Update Name": updateDraggable,
       Cancel: function() {
         $dialog.dialog( "close" );
       }
@@ -183,6 +184,7 @@ function deleteDraggable( to_delete ) {
   id_to_delete = id_to_delete.slice(-1);
   // console.log( "Deleting " + id_to_delete + " from array." );
   $draggable_list[id_to_delete - 1] = undefined;
+  // Experimenting with re-sorting the array to remove blanks.
   // console.log( $draggable_list );
   // var temp_array = new Array();
   // $draggable_list.forEach( function(item) {
@@ -228,7 +230,8 @@ function saveContent( identifier, container ) {
 
   // Save all of the JSON data above to Local Storage.
   console.log(json_data);
-  // localStorage.setItem( "dragonquiz", json_data );
+
+  localStorage.setItem( "dragonquiz", JSON.stringify( json_data ) );
 }
 
 
@@ -262,37 +265,4 @@ function loadImage( image_input, container ) {
  */
 function getBackgroundImageData( container ) {
   return $( container ).css( 'background-image' ).replace(/url\(\"|\"\)$/ig, "");
-}
-
-
-
-
-
-/***** LocalStore Experiment for test_localstore.html *****/
-
-// Get URL query parameters.
-var query_values = new URLSearchParams(window.location.search);
-// Parse out the username from the Query values.
-var query_username = query_values.get("username");
-
-// Set the Storage value if uername is set.
-if( query_username !== null && query_username !== '') {
-  localStorage.setItem( "username", query_username );
-}
-
-/**
- * setName
- * Put the username value from localStorage into the supplied HTML ID element.
- */
-function setName(element_name) {
-  var my_name = document.getElementById(element_name);
-  if( my_name == null ) {
-    return false;
-  }
-  var stored_username = localStorage.getItem("username");
-  if ( stored_username != null ) {
-    my_name.innerHTML = stored_username;
-  } else {
-    my_name.innerHTML = "Nothing Set!";
-  }
 }

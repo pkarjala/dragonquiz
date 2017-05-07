@@ -72,12 +72,13 @@ body {
 }
 
 #dropcontainer { 
-  width: 892px;
+/*  width: 892px;
   height: 675px;
-  background-image: url("http://archive.hokulea.com/images/canoes/hokulea_drawing2.gif");
+  background-image: url("http://archive.hokulea.com/images/canoes/hokulea_drawing2.gif");*/
   min-height: 500px;
   display: inline-block;
   float: left;
+  border: 1px solid;
 }
 
 .drop {

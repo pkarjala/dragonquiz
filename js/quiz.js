@@ -1,6 +1,18 @@
 // Initial concept from http://jsfiddle.net/39khs/82/
 
+// Load up data from Local Storage.
+var quiz_data = JSON.parse( localStorage.getItem("dragonquiz") );
+if ( quiz_data ) {
+  console.log( quiz_data );
+} else {
+  console.log( "No data found." );
+}
+
 // Load up and place the drop container with background image.
+console.log( "Background is: " + quiz_data.image.url );
+$( '#dropcontainer' ).css( 'background-image', 'url(' + quiz_data.image.url + ')' );
+$( '#dropcontainer' ).css( 'height', quiz_data.image.height );
+$( '#dropcontainer' ).css( 'width', quiz_data.image.width );
 
 // Load up and place the drop zones.
 
