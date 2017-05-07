@@ -178,6 +178,20 @@ function addDraggable( identifier, container ) {
  */
 function deleteDraggable( to_delete ) {
   // console.log( "Deleting draggable!" );
+  var id_to_delete = $( to_delete ).parent().parent().attr("id");
+  // Stored ids are "drag#" where "#" is the index of the item in our list.
+  id_to_delete = id_to_delete.slice(-1);
+  // console.log( "Deleting " + id_to_delete + " from array." );
+  $draggable_list[id_to_delete - 1] = undefined;
+  // console.log( $draggable_list );
+  // var temp_array = new Array();
+  // $draggable_list.forEach( function(item) {
+  //   if ( item != undefined ) {
+  //     temp_array.push(item);
+  //   }
+  // });
+  // console.log( temp_array );
+
   $( to_delete ).parent().parent().remove();
 }
 
@@ -194,17 +208,23 @@ function saveContent( identifier, container ) {
   // var draggable_objects = document.getElementsByClassName( identifier );
   json_data = {};
 
-  // json_data['draggables'] = 
-  $( identifier ).each( function( event ) {
+  json_data.draggables = new Array();
+
+  $( identifier ).each( function( index, value ) {
     // Replace with actual construction of JSON data objects.
-    console.log( $( this ).attr( "id" ) );
-    console.log( $( this ).children( '.drag-text' ).text() );
-    console.log( $( this ).position().left - $( container ).position().left - parseInt( $( container ).css( "padding-left" ) )  ); // x
-    console.log( $( this ).position().top - $( container ).position().top - parseInt( $( container ).css( "padding-top" ) ) ); // y
+    json_data['draggables'][index] = {
+      // id : $( this ).attr( "id" ),
+      name: $( this ).children( '.drag-text' ).text(),
+      x: $( this ).position().left - $( container ).position().left - parseInt( $( container ).css( "padding-left" ) ),
+      y: $( this ).position().top - $( container ).position().top - parseInt( $( container ).css( "padding-top" ) )
+    }
   });
-  console.log( getBackgroundImageData( container ) );
-  console.log( $( container ).css( 'height' ) );
-  console.log( $( container ).css( 'width' ) );
+
+  json_data.image = {
+    url :  getBackgroundImageData( container ),
+    height : $( container ).css( 'height' ),
+    width : $( container ).css( 'width' )
+  }
 
   // Save all of the JSON data above to Local Storage.
   console.log(json_data);
