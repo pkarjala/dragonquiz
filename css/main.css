@@ -79,6 +79,8 @@ body {
   display: inline-block;
   float: left;
   border: 1px solid;
+  padding: 10px;
+  background-repeat: no-repeat;
 }
 
 .drop {
@@ -116,7 +118,6 @@ body {
   border: solid 5px purple;
 }
 
+.wrong { background-color: red !important; }
 
-.wrong { background-color: red; }
-
-.correct { background-color: green; }
+.correct { background-color: green !important; }
