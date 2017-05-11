@@ -34,20 +34,21 @@ function calculatePositionY( container, value ) {
  */
 function checkCorrect( drop, draggable ) {
   if ( answer_key[$( drop ).attr('id')] == $( draggable ).attr('id') ) {
-    console.log( "Correct!" );
+    // console.log( "Correct!" );
     return true;
   }
-  console.log( "Wrong." );
+  // console.log( "Wrong." );
   return false;
 }
 
 
 /**
- *
- *
+ * setColor
+ * Sets the color of the element based on the correctness of the result of the dropped item.
  */
 function setColor( container, correct, reset = false ) {
   if( reset ) {
+    // console.log( "Resetting." );
     $( container ).removeClass( "correct wrong" );
     return;
   }
@@ -92,7 +93,7 @@ if ( quiz_data ) {
   // console.log( answer_key );
 } else {
   // console.log( "No data found." );
-  $( '#title' ).html( '<h1>Sorry, no Data Found for creating a quiz!  Please go <a href="./index.html">back</a>.</h1>' );
+  $( '#title' ).html( 'Sorry, no Data Found for creating a quiz!  Please go <a href="./index.html">back</a>.' );
 }
 
 
@@ -110,9 +111,10 @@ $( ".drop" ).droppable({
   hoverClass: 'over',
   drop: function( event, ui ) {
     // console.log( "drop" );
-    // If there is a parent that was disabled (usually another drop zone), enable it
+    // If there is a parent that was disabled (usually another drop zone), enable it and reset it color
     if( $( ui.draggable ).parent().droppable( "option", "disabled" ) ) {
       $( ui.draggable ).parent().droppable( 'enable' );
+      setColor( $( ui.draggable ).parent(), 0, true );
     }
     $( ui.draggable ).detach().css({ top: 0, left: 0 }).appendTo( $( this ) );
     // When an item has been dropped, we want to disable this.
@@ -129,6 +131,7 @@ $( "#origin" ).droppable({
   drop: function( event, ui ) {
     // console.log("drop");
     // console.log( $( ui.draggable ).parent() );
+    setColor( $( ui.draggable ).parent(), 0, true );
     $( ui.draggable ).parent().droppable( 'enable' );
     $( ui.draggable ).detach().css({ top: 0, left: 0 }).appendTo( $( this ) );
   }
@@ -138,6 +141,3 @@ $( function() {
   // Set the height of the draggable area based on the height of the droppable image container.
   $( "#dragcontainer" ).css( "height", $( "#dropcontainer" ).css( "height" ) );
 });
-
-
-// function 

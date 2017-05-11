@@ -36,14 +36,18 @@
 
     <!-- Under setup buttons area. -->
     <div id="buttons">
-      <button id="add" onclick="addDraggable( '.draggable', '#draggable-container' );">Add New Draggable</button>
-      <br />
-      <br />
       <label for="image-url">Image URL: </label>
       <input type="text" id="image-url" /><button id="load-image" onclick="loadImage( '#image-url', '#draggable-container');">Load Image</button>
       <br />
       <br />
-      <button id="save" onclick="saveContent( '.draggable', '#draggable-container' );">Save Draggable and Image Info</button>
+      <button id="add" onclick="addDraggable( '.draggable', '#draggable-container' );">Add Answer</button>
+      <br />
+      <br />
+      <button id="save" onclick="saveContent( '.draggable', '#draggable-container' );">Save Answers and Image Info</button>
+    </div>
+
+    <div id="quiz-link">
+      After saving, <a href="./quiz.html">head here to start the quiz</a>!
     </div>
 
 

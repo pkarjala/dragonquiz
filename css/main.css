@@ -55,6 +55,10 @@ body {
 
 .dialog { display: none; }
 
+#quiz-link {
+  margin-top: 25px;
+}
+
 
 /* Quiz Taking CSS */
 
@@ -66,7 +70,7 @@ body {
 }
 
 #title { 
-  width: 100px;
+  width: 500px;
   margin-left: auto;
   margin-right: auto;
 }

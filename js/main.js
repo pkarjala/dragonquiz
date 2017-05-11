@@ -175,7 +175,6 @@ function addDraggable( identifier, container ) {
 /**
  * deleteDraggable
  * Deletes a draggable from the page.
- *
  */
 function deleteDraggable( to_delete ) {
   // console.log( "Deleting draggable!" );
